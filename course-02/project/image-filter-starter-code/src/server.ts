@@ -1,6 +1,8 @@
 import express from 'express';
+import { Request, Response } from "express";
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
+import { unlink } from 'fs';
 
 (async () => {
 
@@ -33,6 +35,20 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   
   // Root Endpoint
   // Displays a simple message to the user
+
+  app.get("/filteredimage",async (req:Request, res:Response)=>{
+    const {image_url,title} = req.query
+
+    if(!image_url){
+      return res.status(400).send("query not properly set")
+    }
+
+    const filteredImgPath = await filterImageFromURL(image_url)
+
+    
+    res.status(200).sendFile(filteredImgPath, {}, ()=>deleteLocalFiles([filteredImgPath]) )
+  })
+
   app.get( "/", async ( req, res ) => {
     res.send("try GET /filteredimage?image_url={{}}")
   } );
