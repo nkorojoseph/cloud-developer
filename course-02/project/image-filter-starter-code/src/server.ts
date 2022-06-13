@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
 import { unlink } from 'fs';
 
+
+
 (async () => {
 
   // Init the Express application
