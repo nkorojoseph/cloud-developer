@@ -47,7 +47,7 @@ export class CreateGroup extends React.PureComponent<
 
       alert('Group was created!')
     } catch (e) {
-      alert('Could not upload an image: ' + e.message)
+      alert('Could not upload an image: ' + e)
     } finally {
       this.setUploadState(false)
     }
